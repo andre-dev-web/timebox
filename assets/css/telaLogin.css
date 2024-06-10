@@ -8,7 +8,7 @@
 }
 
 body {
-    background-image: url(img/Login.png);
+    background-image: url(../img/login.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

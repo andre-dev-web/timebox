@@ -23,4 +23,4 @@ function colorLink(){
     this.classList.add('active')
 }
 
-linkColor.forEach(l => l.addEventListener('click', colorLink))
+linkColor.forEach(l => l.addEventListener('click', colorLink));
