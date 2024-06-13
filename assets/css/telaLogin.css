@@ -74,12 +74,21 @@ form {
     border-radius: 4px;
 }
 
+#senha{
+    padding-right: 40px;
+}
+
 .input-box i {
     position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
     color: black; /* Cor preta */
+}
+
+#mostrarSenha{
+    left: 350px;
+    cursor: pointer;
 }
 
 .btnEntrar {

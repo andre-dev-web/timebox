@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="./assets/css/telaLogin.css">
+    <script src="assets/js/telaLogin.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!--importando do site boxicons.com para usar como "font"-->
 
 </head>
@@ -29,8 +30,9 @@
                 <h2>Senha</h2>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Senha" required>
+                <input id="senha" type="password" placeholder="Senha" required>
                 <i class='bx bxs-lock' ></i>
+                <i id="mostrarSenha" class='bx bxs-low-vision' onclick="mostrarSenha()"></i>
             </div>
             <button type="submit" class="btnEntrar">Entrar</button>
             <div class="textos-sublinhados">
