@@ -19,18 +19,20 @@ body {
     min-height: 100vh;
 }
 
-header, footer {
+header {
     width: 100%;
     text-align: center;
     padding: 10px 0;
-    color: black; 
+    background: none; /* Remove o fundo translúcido */
+    color: black;
 }
 
 header img {
-    max-height: 50px; /* Ajuste a altura conforme necessário */
+    max-height: 50px;
 }
 
 .wrapper {
+    position: relative;
     background: white;
     width: 420px;
     padding: 20px;
@@ -39,6 +41,31 @@ header img {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.error-message {
+    position: absolute; 
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FCEAEE;
+    color: #E22D57;
+    padding: 10px;
+    padding-left: 30px;
+    border: 1.5px solid #E22D57;
+    border-radius: 4px;
+    text-align: center;
+    display: none; /* Oculto por padrão */
+    font-size: 14px;
+    width: 420px;
+}
+
+.error-message i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #E22D57;
 }
 
 h1 {
@@ -74,7 +101,7 @@ form {
     border-radius: 4px;
 }
 
-#senha{
+#senha {
     padding-right: 40px;
 }
 
@@ -86,7 +113,7 @@ form {
     color: black; /* Cor preta */
 }
 
-#mostrarSenha{
+#mostrarSenha {
     left: 350px;
     cursor: pointer;
 }
@@ -112,7 +139,7 @@ form {
 }
 
 footer a {
-    color: black; 
+    color: black;
     text-decoration: underline;
     font-weight: 600;
     margin: 0 10px;
