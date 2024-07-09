@@ -1,36 +1,29 @@
 <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!--========== ICONES ==========-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-
-        <!--========== CSS ==========-->
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="assets/css/modal.css">
-        
-        <!--========== FAVICON ==========-->
-        <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
-
-        <title>TimeBox</title>
-    </head>
-    <body>
-        <!--========== HEADER ==========-->
-        <header class="header">
-            <div class="header__container">
-                <img src="assets/img/perfil.png" alt="" class="header__img">
-                <p>Perfil</p>
-    
-                <div class="header__toggle">
-                    <i class='bx bx-menu' id="header-toggle"></i>
-                </div>
-            </div>
-        </header>
-
-        <!--========== NAV ==========-->
-        <div class="nav" id="navbar">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Disciplina</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/disciplina.css">
+    <!--========== ICONES ==========-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!--========== FAVICON ==========-->
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+</head>
+<body>
+ <!--========== HEADER ==========-->
+ <header class="header">
+     <div class="header__container">
+         <img src="assets/img/perfil.png" alt="" class="header__img">
+         <p>Perfil</p>
+         <div class="header__toggle">
+             <i class='bx bx-menu' id="header-toggle"></i>
+         </div>
+     </div>
+ </header>
+         <!--========== NAV ==========-->
+         <div class="nav" id="navbar">
             <nav class="nav__container">
                 <div>
                     <a href="#" class="nav__link nav__logo">
@@ -121,16 +114,61 @@
             </nav>
         </div>
 
-        <!--========== CONTEUDOS ==========-->
-        <main>
-            <section>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt vel illum fuga unde cum, voluptates magni molestias eveniet culpa autem ut, totam veniam, suscipit tempore ullam pariatur est at asperiores?</p>
-            </section>
-        </main>
+ <main class="container">
+     <section class="form-section">
+         <form id="disciplina-form">
+             <h2>Adicionar disciplina</h2>
+             <div>
+                 <div>
+                     <label for="nome">Nome</label>
+                     <input type="text" id="nome" name="nome" placeholder="Nome da disciplina" required>
+                 </div>
+                 <div>
+                     <label for="professor">Nome do professor</label>
+                     <input type="text" id="professor" name="professor" placeholder="Nome do professor" required>
+                 </div>
+                 <div>
+                     <label for="aulas">Número de aulas por semana</label>
+                     <input type="number" id="aulas" name="aulas" placeholder="Número de aulas por semana" required>
+                 </div>
+                 <div>
+                     <label for="dias">Mínimo de dias</label>
+                     <input type="number" id="dias" name="dias" placeholder="Mínimo de dias" required>
+                 </div>
+                 <div>
+                     <label for="alunos">Número de alunos</label>
+                     <input type="number" id="alunos" name="alunos" placeholder="Número de alunos" required>
+                 </div>
+                 <button type="submit">Salvar</button>
+             </div>
+         </form>
+     </section>
+     <section class="table-section">
+         <h2>Disciplinas cadastradas</h2>
+         <table id="disciplinas-table">
+             <thead>
+                 <tr>
+                     <th>Nome</th>
+                     <th>Professor</th>
+                     <th>Aulas/semana</th>
+                     <th>Mínimo dias</th>
+                     <th>Alunos</th>
+                     <th>Ações</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <!-- Linhas da tabela serão inseridas aqui -->
+             </tbody>
+         </table>
+         <div class="pagination">
+             <button id="prevPage">Anterior</button>
+             <span id="pageNumber">1</span>
+             <button id="nextPage">Próxima</button>
+         </div>
+     </section>
+ </main>
 
-        <!--========== JS ==========-->
-        <script src="assets/js/main.js"></script>
-    </body>
+ <script src="assets/js/main.js"></script>
+ <script src="assets/js/disciplina.js"></script>
+</body>
 </html>
