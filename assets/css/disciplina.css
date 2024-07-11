@@ -1,19 +1,20 @@
 /* Adicionando estilos específicos para a página de disciplinas */
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
 }
 
 .form-section, .table-section {
     flex: 1;
-    margin: 0 1rem;
+    margin: 1rem 0;
 }
 
 .form-section {
-    max-width: 300px;
+    max-width: 100%;
 }
 
 form {
@@ -21,29 +22,25 @@ form {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    border: 1px solid #07A5BB; /* Borda verde */
+    border: 1px solid #07A5BB;
     border-radius: 8px;
     background-color: var(--container-color);
     position: relative;
 }
 
 form h2 {
-    background-color: #07A5BB; /* Cabeçalho verde */
+    background-color: #07A5BB;
     color: white;
-    padding: 0.5rem;
-    border-radius: 8px 8px 0 0; /* Bordas arredondadas na parte superior */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0; 
+    margin: -1rem -1rem 1rem -1rem;
     text-align: center;
-    margin: 0;
+    position: relative;
 }
 
 form div {
     display: flex;
     flex-direction: column;
-    margin-top: 1.5rem; /* Para dar espaço ao cabeçalho */
 }
 
 form label {
@@ -59,7 +56,7 @@ form input {
 
 form button {
     padding: 0.5rem 1rem;
-    background-color: #07A5BB; /* Botão de salvar verde */
+    background-color: #07A5BB; 
     color: white;
     border: none;
     border-radius: 4px;
@@ -71,36 +68,102 @@ form button:hover {
     background-color: #07a6bb8f;
 }
 
+.form-messages {
+    display: none;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.form-messages.error {
+    color: white;
+    background-color: red;
+    opacity: 1;
+}
+
+.form-messages.success {
+    color: white;
+    background-color: green;
+    opacity: 1;
+}
+
 .table-section {
     padding: 1rem;
-    border: 1px solid #07A5BB; /* Borda verde */
+    border: 1px solid #07A5BB; 
     border-radius: 8px;
     background-color: var(--container-color);
 }
 
+#search-bar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #07A5BB;
+    border-radius: 8px;
+    background-color: var(--container-color);
+    padding-left: 2.5rem; /* Espaço para o ícone */
+}
+
+#search-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 1.5rem;
+    color: #07A5BB;
+}
+
 .table-section h2 {
-    background-color: #07A5BB; /* Cabeçalho verde */
+    background-color: #07A5BB;
     color: white;
-    padding: 0.5rem;
-    border-radius: 8px 8px 0 0; /* Bordas arredondadas na parte superior */
-    margin: -1rem -1rem 1rem -1rem; /* Para alinhar com a borda da seção */
+    padding: 1rem;
+    border-radius: 8px 8px 0 0; 
+    margin: -1rem -1rem 1rem -1rem;
     text-align: center;
+    position: relative;
 }
 
 table {
+    margin-top: 15px;
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
+    min-width: 600px;
+}
+
+table td {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
 }
 
 table th, table td {
     padding: 1rem;
-    border: 1px solid #07A5BB; /* Borda verde */
+    border: 1px solid #07A5BB;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
 }
 
 table th {
-    background-color: #07a6bb65; /* Cabeçalho verde */
+    background-color: #07a6bb65;
     color: black;
 }
 
@@ -143,4 +206,62 @@ table tbody tr:nth-child(even) {
 .pagination button:disabled {
     background-color: grey;
     cursor: not-allowed;
+}
+
+table td[data-tooltip]::after {
+    display: none;
+    content: attr(data-tooltip);
+    position: fixed;
+    background: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    transform: translateX(0px);
+  
+}
+
+table td[data-tooltip]:hover::after {
+    display: block;
+}
+
+/* Media queries para responsividade */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        padding: 6rem;
+    }
+
+    .form-section {
+        max-width: 300px;
+    }
+
+    .form-section, .table-section {
+        margin: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav__container {
+        padding: 1rem;
+    }
+
+    .nav__logo {
+        margin-bottom: 1rem;
+    }
+
+    .nav__list {
+        row-gap: 1.5rem;
+    }
+
+    .table-section {
+        margin-top: 2rem;
+    }
 }

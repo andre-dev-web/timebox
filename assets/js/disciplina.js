@@ -4,13 +4,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevPageBtn = document.getElementById('prevPage');
     const nextPageBtn = document.getElementById('nextPage');
     const pageNumber = document.getElementById('pageNumber');
+    const searchBar = document.getElementById('search-bar');
+    const formMessages = document.getElementById('form-messages');
 
-    const rowsPerPage = 8;
+    const rowsPerPage = 5;
     let currentPage = 1;
     let disciplinas = [];
+    let filteredDisciplinas = [];
+    let editIndex = -1; // Índice para rastrear o item em edição
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+        
+        const inputs = form.querySelectorAll('input');
+        let formIsValid = true;
+        let errorMessage = '';
+
+        inputs.forEach(input => {
+            if (input.value.trim() === '') {
+                formIsValid = false;
+                errorMessage = 'Todos os campos são obrigatórios.';
+            } else if (input.type === 'number' && input.value <= 0) {
+                formIsValid = false;
+                errorMessage = 'Os valores numéricos devem ser maiores que zero.';
+            }
+        });
+
+        if (!formIsValid) {
+            showMessage(errorMessage, 'error');
+            return;
+        }
 
         const disciplina = {
             nome: form.nome.value,
@@ -20,27 +43,80 @@ document.addEventListener('DOMContentLoaded', () => {
             alunos: form.alunos.value,
         };
 
-        disciplinas.push(disciplina);
-        renderTable();
+        if (editIndex === -1) {
+            disciplinas.push(disciplina);
+        } else {
+            disciplinas[editIndex] = disciplina;
+            editIndex = -1; // Resetar o índice de edição
+        }
+
+        applyFilter();
         form.reset();
+        currentPage = Math.ceil(filteredDisciplinas.length / rowsPerPage);
+        renderTable();
+        showMessage('Disciplina salva com sucesso!', 'success');
     });
+
+    form.addEventListener('input', () => {
+        clearMessages();
+    });
+
+    searchBar.addEventListener('input', () => {
+        applyFilter();
+    });
+
+    function applyFilter() {
+        const searchTerm = searchBar.value.toLowerCase();
+        filteredDisciplinas = disciplinas.filter(disciplina => {
+            return (
+                disciplina.nome.toLowerCase().includes(searchTerm) ||
+                disciplina.professor.toLowerCase().includes(searchTerm)
+            );
+        });
+        currentPage = 1; // Reset to first page when applying a filter
+        renderTable();
+    }
 
     function renderTable() {
         tableBody.innerHTML = '';
 
         const startIndex = (currentPage - 1) * rowsPerPage;
         const endIndex = startIndex + rowsPerPage;
-        const pageItems = disciplinas.slice(startIndex, endIndex);
+        const pageItems = filteredDisciplinas.slice(startIndex, endIndex);
 
         pageItems.forEach((disciplina, index) => {
             const row = tableBody.insertRow();
 
-            row.insertCell(0).innerText = disciplina.nome;
-            row.insertCell(1).innerText = disciplina.professor;
-            row.insertCell(2).innerText = disciplina.aulas;
-            row.insertCell(3).innerText = disciplina.dias;
-            row.insertCell(4).innerText = disciplina.alunos;
+            const cellNome = row.insertCell(0);
+            cellNome.innerText = disciplina.nome;
+            if (disciplina.nome.length > 21) {
+                cellNome.setAttribute('data-tooltip', disciplina.nome);
+            }
 
+            const cellProfessor = row.insertCell(1);
+            cellProfessor.innerText = disciplina.professor;
+            if (disciplina.professor.length > 21) {
+                cellProfessor.setAttribute('data-tooltip', disciplina.professor);
+            }
+
+            const cellAulas = row.insertCell(2);
+            cellAulas.innerText = disciplina.aulas;
+            if (disciplina.aulas.length > 21) {
+                cellAulas.setAttribute('data-tooltip', disciplina.aulas);
+            }
+            
+            const cellDias = row.insertCell(3);
+            cellDias.innerText = disciplina.dias;
+            if (disciplina.dias.length > 21) {
+                cellDias.setAttribute('data-tooltip', disciplina.dias);
+            }
+
+            const cellAlunos = row.insertCell(4);
+            cellAlunos.innerText = disciplina.alunos;
+            if (disciplina.alunos.length > 21) {
+                cellAlunos.setAttribute('data-tooltip', disciplina.alunos);
+            }
+            
             const actionsCell = row.insertCell(5);
             actionsCell.innerHTML = `
                 <button class="edit-btn"><i class='bx bx-edit'></i></button>
@@ -53,11 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pageNumber.innerText = currentPage;
         prevPageBtn.disabled = currentPage === 1;
-        nextPageBtn.disabled = endIndex >= disciplinas.length;
+        nextPageBtn.disabled = endIndex >= filteredDisciplinas.length;
     }
 
     function editDisciplina(index) {
-        const disciplina = disciplinas[index];
+        const disciplina = filteredDisciplinas[index];
+        editIndex = disciplinas.indexOf(disciplina); // Atualizar o índice de edição
 
         form.nome.value = disciplina.nome;
         form.professor.value = disciplina.professor;
@@ -65,13 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
         form.dias.value = disciplina.dias;
         form.alunos.value = disciplina.alunos;
 
-        disciplinas.splice(index, 1);
-        renderTable();
+        renderTable(); // Renderizar a tabela para garantir que o item permaneça na mesma posição
     }
 
     function deleteDisciplina(index) {
-        disciplinas.splice(index, 1);
-        renderTable();
+        const disciplina = filteredDisciplinas[index];
+        disciplinas.splice(disciplinas.indexOf(disciplina), 1);
+        applyFilter();
     }
 
     prevPageBtn.addEventListener('click', () => {
@@ -82,11 +159,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     nextPageBtn.addEventListener('click', () => {
-        if ((currentPage * rowsPerPage) < disciplinas.length) {
+        if ((currentPage * rowsPerPage) < filteredDisciplinas.length) {
             currentPage++;
             renderTable();
         }
     });
 
-    renderTable();
+    function showMessage(message, type) {
+        formMessages.className = `form-messages ${type}`;
+        formMessages.textContent = message;
+        formMessages.style.display = 'block';
+        setTimeout(() => {
+            formMessages.style.opacity = '1';
+        }, 10);
+        setTimeout(() => {
+            formMessages.style.opacity = '0';
+            setTimeout(() => {
+                formMessages.style.display = 'none';
+            }, 500);
+        }, 3000);
+    }
+
+    function clearMessages() {
+        formMessages.style.display = 'none';
+        formMessages.style.opacity = '0';
+    }
+
+    applyFilter();
 });
