@@ -72,8 +72,6 @@ form button:hover {
     display: none;
     font-size: 1rem;
     margin-bottom: 1rem;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
     position: fixed;
     top: 80px;
     left: 50%;
@@ -81,19 +79,29 @@ form button:hover {
     z-index: 1000;
     padding: 1rem;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .form-messages.error {
-    color: white;
-    background-color: red;
-    opacity: 1;
+    color: #E22D57;
+    background-color: #FCEAEE;
+    border: 1.5px solid #E22D57;
 }
 
 .form-messages.success {
-    color: white;
-    background-color: green;
-    opacity: 1;
+    color: #5dc98f;
+    background-color: #EBFDFF;
+    border: 1.5px solid #5dc98f;
 }
+
+#form-messages i {
+    font-size: 1.5rem;
+}
+
 
 .table-section {
     padding: 1rem;
@@ -133,6 +141,11 @@ form button:hover {
     margin: -1rem -1rem 1rem -1rem;
     text-align: center;
     position: relative;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
 }
 
 table {
@@ -219,7 +232,6 @@ table td[data-tooltip]::after {
     white-space: nowrap;
     z-index: 10;
     transform: translateX(0px);
-  
 }
 
 table td[data-tooltip]:hover::after {

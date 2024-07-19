@@ -6,12 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageNumber = document.getElementById('pageNumber');
     const searchBar = document.getElementById('search-bar');
     const formMessages = document.getElementById('form-messages');
+    const formMessageText = document.getElementById('form-message-text');
+    const errorIcon = document.getElementById('error-icon');
+    const successIcon = document.getElementById('success-icon');
 
     const rowsPerPage = 5;
     let currentPage = 1;
     let disciplinas = [];
     let filteredDisciplinas = [];
-    let editIndex = -1; // Índice para rastrear o item em edição
+    let editIndex = -1; 
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -46,8 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editIndex === -1) {
             disciplinas.push(disciplina);
         } else {
-            disciplinas[editIndex] = disciplina;
-            editIndex = -1; // Resetar o índice de edição
+            disciplinas.splice(editIndex, 1);
+            disciplinas.push(disciplina);
+            editIndex = -1;
         }
 
         applyFilter();
@@ -73,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 disciplina.professor.toLowerCase().includes(searchTerm)
             );
         });
-        currentPage = 1; // Reset to first page when applying a filter
+        currentPage = 1;
         renderTable();
     }
 
@@ -130,11 +134,35 @@ document.addEventListener('DOMContentLoaded', () => {
         pageNumber.innerText = currentPage;
         prevPageBtn.disabled = currentPage === 1;
         nextPageBtn.disabled = endIndex >= filteredDisciplinas.length;
+
+        initializeTooltips();
+    }
+
+    function initializeTooltips() {
+        const cells = tableBody.querySelectorAll('td[data-tooltip]');
+        cells.forEach(cell => {
+            cell.addEventListener('mouseenter', (e) => {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.innerText = cell.getAttribute('data-tooltip');
+
+                const rect = cell.getBoundingClientRect();
+                tooltip.style.left = `${rect.left + window.pageXOffset}px`;
+                tooltip.style.top = `${rect.top + window.pageYOffset - tooltip.offsetHeight}px`;
+            });
+
+            cell.addEventListener('mouseleave', () => {
+                const tooltip = document.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.remove();
+                }
+            });
+        });
     }
 
     function editDisciplina(index) {
         const disciplina = filteredDisciplinas[index];
-        editIndex = disciplinas.indexOf(disciplina); // Atualizar o índice de edição
+        editIndex = disciplinas.indexOf(disciplina); 
 
         form.nome.value = disciplina.nome;
         form.professor.value = disciplina.professor;
@@ -142,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.dias.value = disciplina.dias;
         form.alunos.value = disciplina.alunos;
 
-        renderTable(); // Renderizar a tabela para garantir que o item permaneça na mesma posição
+        renderTable(); 
     }
 
     function deleteDisciplina(index) {
@@ -167,8 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showMessage(message, type) {
         formMessages.className = `form-messages ${type}`;
-        formMessages.textContent = message;
-        formMessages.style.display = 'block';
+        formMessageText.textContent = message;
+        errorIcon.style.display = type === 'error' ? 'block' : 'none';
+        successIcon.style.display = type === 'success' ? 'block' : 'none';
+        formMessages.style.display = 'flex';
         setTimeout(() => {
             formMessages.style.opacity = '1';
         }, 10);
@@ -176,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
             formMessages.style.opacity = '0';
             setTimeout(() => {
                 formMessages.style.display = 'none';
-            }, 500);
-        }, 3000);
+            }, 500); 
+        }, 3000); 
     }
 
     function clearMessages() {
