@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Disciplina</title>
+    <title>Cadastro de Restrições</title>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/disciplina.css">
-    <!--========== ICONES ==========-->
+    <link rel="stylesheet" href="assets/css/restricoes.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <!--========== FAVICON ==========-->
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
 </head>
 <body>
-    <!--========== HEADER ==========-->
     <header class="header">
         <div class="header__container">
             <img src="assets/img/perfil.png" alt="" class="header__img">
@@ -22,7 +19,6 @@
             </div>
         </div>
     </header>
-    <!--========== NAV ==========-->
     <div class="nav" id="navbar">
         <nav class="nav__container">
             <div>
@@ -68,14 +64,6 @@
                                         </svg>
                                         Professores
                                     </a>
-                                    <a href="#" class="nav__dropdown-item">
-                                        <svg class="nav__svg" width="20" height="51" viewBox="0 0 20 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 0.955872V22.9559" stroke="#BBBBBB"/>
-                                            <circle cx="10" cy="25.9559" r="3" fill="#828282"/>
-                                            <path d="M10 28.9559V50.9559" stroke="#BBBBBB"/>
-                                        </svg>
-                                        Curriculas
-                                    </a>
                                     <a href="restricoes.html" class="nav__dropdown-item">
                                         <svg class="nav__svg" width="20" height="51" viewBox="0 0 20 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M10 0.955872V22.9559" stroke="#BBBBBB"/>
@@ -113,46 +101,62 @@
             <span id="form-message-text"></span>
         </div>
         <section class="form-section">
-            <form id="disciplina-form">
-                <h2>Adicionar disciplina</h2>
+            <form id="restricoes-form">
+                <h2>Adicionar Restrição</h2>
                 <div>
-                    <label for="nome">Nome da disciplina</label>
-                    <input type="text" id="nome" name="nome" required>
+                    <label for="disciplina">Disciplina</label>
+                    <div class="dropdown disciplina-dropdown">
+                        <input type="text" id="disciplina" name="disciplina" placeholder="Selecione a disciplina" readonly>
+                        <i class='bx bx-chevron-down dropdown-icon'></i>
+                        <div class="dropdown-content disciplina-dropdown-content" id="disciplinasDropdown">
+                            <!-- Disciplinas serão carregadas aqui via JavaScript -->
+                        </div>
+                    </div>
                 </div>
                 <div>
-                    <label for="professor">Nome do professor</label>
-                    <input type="text" id="professor" name="professor" required>
+                    <label for="professor">Professor</label>
+                    <input type="text" id="professor" name="professor" readonly>
+                </div>
+                <div>
+                    <label for="horario">Horário</label>
+                    <input type="number" id="horario" name="horario" required>
                 </div>
                 <div>
                     <label for="aulas">Número de aulas por semana</label>
                     <input type="number" id="aulas" name="aulas" required>
                 </div>
                 <div>
-                    <label for="dias">Mínimo de dias</label>
-                    <input type="number" id="dias" name="dias" required>
-                </div>
-                <div>
-                    <label for="alunos">Número de alunos</label>
-                    <input type="number" id="alunos" name="alunos" required>
+                    <label for="dias-restritos">Dias restritos</label>
+                    <div class="dropdown dias-dropdown">
+                        <input type="text" id="dias-restritos" placeholder="Selecione o(s) dia(s)" readonly>
+                        <i class='bx bx-chevron-down dropdown-icon'></i>
+                        <div class="dropdown-content dias-dropdown-content" id="diasDropdown">
+                            <label><input type="checkbox" value="Segunda"> Segunda</label>
+                            <label><input type="checkbox" value="Terça"> Terça</label>
+                            <label><input type="checkbox" value="Quarta"> Quarta</label>
+                            <label><input type="checkbox" value="Quinta"> Quinta</label>
+                            <label><input type="checkbox" value="Sexta"> Sexta</label>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit">Salvar</button>
             </form>
         </section>
         <section class="table-section">
-            <h2>Disciplinas cadastradas</h2>
+            <h2>Restrições Cadastradas</h2>
             <div id="search-bar-container">
                 <i id="search-icon" class='bx bx-search'></i>
-                <input type="text" id="search-bar" placeholder="Buscar por nome da disciplina ou professor">
-            </div>        
+                <input type="text" id="search-bar" placeholder="Buscar por disciplina">
+            </div>
             <div class="table-responsive">
-                <table id="disciplinas-table">
+                <table id="restricoes-table">
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th>Disciplina</th>
                             <th>Professor</th>
+                            <th>Horário</th>
                             <th>Aulas/semana</th>
-                            <th>Mínimo dias</th>
-                            <th>Alunos</th>
+                            <th>Dias restritos</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -169,6 +173,6 @@
         </section>
     </main>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/disciplina.js"></script>
+    <script src="assets/js/restricoes.js"></script>
 </body>
 </html>

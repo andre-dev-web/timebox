@@ -1,0 +1,352 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.form-section, .table-section {
+    flex: 1;
+    margin: 1rem 0;
+}
+
+.form-section {
+    max-width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #07A5BB;
+    border-radius: 8px;
+    background-color: var(--container-color);
+    position: relative;
+}
+
+form h2 {
+    background-color: #07A5BB;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0; 
+    margin: -1rem -1rem 1rem -1rem;
+    text-align: center;
+    position: relative;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+form input, form select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input.error, form select.error {
+    border: 1px solid #E22D57;
+    background-color: #FCEAEE;
+}
+
+form input[readonly] {
+    background-color: #f1f1f1;
+}
+
+form button {
+    padding: 0.5rem 1rem;
+    background-color: #07A5BB; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #07a6bb8f;
+}
+
+.dropdown {
+    position: relative;
+}
+
+#dias-restritos, #disciplina {
+    width: 100%; 
+    cursor: pointer;
+    padding-right: 30px; 
+    box-sizing: border-box; 
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.1s ease-in-out;
+    pointer-events: none; 
+}
+
+.dropdown.open .dropdown-icon {
+    transform: translateY(-50%) rotate(180deg); /* rotação do ícone */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    background-color: #f1f1f1;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease; 
+}
+
+/* estilos específicos para dropdown de disciplinas */
+.disciplina-dropdown-content {
+    max-height: 170px; 
+    overflow-y: auto;
+}
+
+/* estilos específicos para dropdown de dias restritos */
+.dias-dropdown-content {
+    max-height: 250px; 
+    overflow-y: auto;
+}
+
+.dropdown-content label, .dropdown-content div {
+    display: block;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.dropdown-content label:hover, .dropdown-content div:hover {
+    background-color: #ddd;
+}
+
+.dropdown.open .dropdown-content {
+    display: block;
+    opacity: 1;
+}
+
+.form-messages {
+    display: none;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.form-messages.error {
+    color: #E22D57;
+    background-color: #FCEAEE;
+    border: 1.5px solid #E22D57;
+}
+
+.form-messages.success {
+    color: #5dc98f;
+    background-color: #EBFDFF;
+    border: 1.5px solid #5dc98f;
+}
+
+#form-messages i {
+    font-size: 1.5rem;
+}
+
+.table-section {
+    padding: 1rem;
+    border: 1px solid #07A5BB; 
+    border-radius: 8px;
+    background-color: var(--container-color);
+}
+
+#search-bar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #07A5BB;
+    border-radius: 8px;
+    background-color: var(--container-color);
+    padding-left: 2.5rem; 
+}
+
+#search-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 1.5rem;
+    color: #07A5BB;
+}
+
+.table-section h2 {
+    background-color: #07A5BB;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0; 
+    margin: -1rem -1rem 1rem -1rem;
+    text-align: center;
+    position: relative;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    margin-top: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 600px;
+}
+
+table td {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+table th, table td {
+    padding: 1rem;
+    border: 1px solid #07A5BB;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+table th {
+    background-color: #07a6bb65;
+    color: black;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.edit-btn:hover {
+    color: #07A5BB;
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    background-color: #07A5BB;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+table td[data-tooltip]::after {
+    display: none;
+    content: attr(data-tooltip);
+    position: fixed;
+    background: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    transform: translateX(0px);
+}
+
+table td[data-tooltip]:hover::after {
+    display: block;
+}
+
+/* media queries para responsividade */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        padding: 6rem;
+    }
+
+    .form-section {
+        max-width: 300px;
+    }
+
+    .form-section, .table-section {
+        margin: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav__container {
+        padding: 1rem;
+    }
+
+    .nav__logo {
+        margin-bottom: 1rem;
+    }
+
+    .nav__list {
+        row-gap: 1.5rem;
+    }
+
+    .table-section {
+        margin-top: 2rem;
+    }
+}
